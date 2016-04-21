@@ -1,6 +1,6 @@
 -module(damm).
 
--export([checksum/1, encode/1, check/1]).
+-export([checksum/1, encode/1, is_valid/1]).
 
 -define(TABLE, {{0, 3, 1, 7, 5, 9, 8, 6, 4, 2},
                 {7, 0, 9, 2, 1, 5, 4, 8, 6, 3},
@@ -29,6 +29,6 @@ checksum([], Acc) ->
 encode(N) ->
     10 * N + checksum(N).
 
--spec encode(non_neg_integer()) -> boolean().
-check(N) ->
+-spec is_valid(non_neg_integer()) -> boolean().
+is_valid(N) ->
     checksum(N) == 0.
