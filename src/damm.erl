@@ -32,3 +32,18 @@ encode(N) ->
 -spec is_valid(non_neg_integer()) -> boolean().
 is_valid(N) ->
     checksum(N) == 0.
+
+
+-ifdef(TEST).
+-include_lib("eunit/include/eunit.hrl").
+
+checksum_test_() ->
+    [?_assertEqual(4, checksum(572))].
+
+encode_test_() ->
+    [?_assertEqual(5724, encode(572))].
+
+is_valid_test_() ->
+    [?_assertEqual(true, is_valid(5724))].
+
+-endif.
