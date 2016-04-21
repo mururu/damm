@@ -3,7 +3,7 @@ damm
 
 An Erlang implementaion of the Damm algorithm created by H. Michael Damm.  
 The Damm algoritm is a check digit algorithm which can detects all single-digit errors and transposition errors.  
-More details: [Wikipedia](https://en.wikipedia.org/wiki/Damm_algorithm)
+More details: [Damm algorithm - Wikipedia](https://en.wikipedia.org/wiki/Damm_algorithm)
 
 ## Usage
 
