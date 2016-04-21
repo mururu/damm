@@ -1,5 +1,5 @@
 {application, damm,
- [{description, "Damm algorithm implementation in Erlang"},
+ [{description, "Damm algorithm implementation"},
   {vsn, "0.1.0"},
   {registered, []},
   {applications,
