@@ -1,5 +1,5 @@
 {application, damm,
- [{description, "An OTP library"},
+ [{description, "Damm algorithm implementation in Erlang"},
   {vsn, "0.1.0"},
   {registered, []},
   {applications,
@@ -9,7 +9,7 @@
   {env,[]},
   {modules, []},
 
-  {maintainers, []},
-  {licenses, []},
-  {links, []}
+  {maintainers, ["Yuki Ito"]},
+  {licenses, ["MIT"]},
+  {links, [{"Github", "https://github.com/mururu/damm"}]}
  ]}.
