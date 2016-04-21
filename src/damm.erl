@@ -15,21 +15,35 @@
 
 -define(LOOKUP(X, Y), (element(Y + 1, element(X + 1, ?TABLE)))).
 
--spec checksum(non_neg_integer()) -> 0..9.
-checksum(N) ->
+-spec checksum(binary() | list() | non_neg_integer()) -> 0..9.
+checksum(Bin) when is_binary(Bin) ->
+    checksum_bin(Bin, 0);
+checksum(S) when is_list(S) ->
+    checksum_list(S, 0);
+checksum(N) when is_integer(N) ->
     S = integer_to_list(N),
-    checksum(S, 0).
+    checksum_list(S, 0).
 
-checksum([C|Rest], Acc) ->
-    checksum(Rest, ?LOOKUP(Acc, C - 48));
-checksum([], Acc) ->
+checksum_bin(<<C, Rest/binary>>, Acc) ->
+    checksum_bin(Rest, ?LOOKUP(Acc, C - 48));
+checksum_bin(<<>>, Acc) ->
     Acc.
 
--spec encode(non_neg_integer()) -> non_neg_integer().
-encode(N) ->
-    10 * N + checksum(N).
+checksum_list([C|Rest], Acc) ->
+    checksum_list(Rest, ?LOOKUP(Acc, C - 48));
+checksum_list([], Acc) ->
+    Acc.
 
--spec is_valid(non_neg_integer()) -> boolean().
+-spec encode(binary() | list() | non_neg_integer()) -> binary() | list() | non_neg_integer().
+encode(Bin) when is_binary(Bin) ->
+    <<Bin/binary, (checksum_bin(Bin, 0) + 48)>>;
+encode(S) when is_list(S) ->
+    S ++ [checksum_list(S, 0) + 48];
+encode(N) when is_integer(N) ->
+    S = integer_to_list(N),
+    10 * N + checksum_list(S, 0).
+
+-spec is_valid(binary() | list() | non_neg_integer()) -> boolean().
 is_valid(N) ->
     checksum(N) == 0.
 
@@ -38,12 +52,18 @@ is_valid(N) ->
 -include_lib("eunit/include/eunit.hrl").
 
 checksum_test_() ->
-    [?_assertEqual(4, checksum(572))].
+    [?_assertEqual(4, checksum(572)),
+     ?_assertEqual(4, checksum("572")),
+     ?_assertEqual(4, checksum(<<"572">>))].
 
 encode_test_() ->
-    [?_assertEqual(5724, encode(572))].
+    [?_assertEqual(5724, encode(572)),
+     ?_assertEqual("5724", encode("572")),
+     ?_assertEqual(<<"5724">>, encode(<<"572">>))].
 
 is_valid_test_() ->
-    [?_assertEqual(true, is_valid(5724))].
+    [?_assertEqual(true, is_valid(5724)),
+     ?_assertEqual(true, is_valid("5724")),
+     ?_assertEqual(true, is_valid(<<"5724">>))].
 
 -endif.
