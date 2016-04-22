@@ -29,7 +29,7 @@ More details: [Damm algorithm - Wikipedia](https://en.wikipedia.org/wiki/Damm_al
 <<"5724">>
 ```
 
-##### `damm:is_valie/1`
+##### `damm:is_valid/1`
 
 ```
 1> damm:is_valid(5724).
