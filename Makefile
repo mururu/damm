@@ -3,16 +3,16 @@
 all: compile xref eunit dialyzer
 
 compile:
-	@rebar3 compile
+	@./rebar3 compile
 
 xref:
-	@rebar3 xref
+	@./rebar3 xref
 
 clean:
-	@rebar3 clean
+	@./rebar3 clean
 
 eunit:
-	@rebar3 eunit
+	@./rebar3 eunit
 
 dialyzer:
-	@rebar3 dialyzer
+	@./rebar3 dialyzer
